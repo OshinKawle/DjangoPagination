@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+{% extends 'layout.html' %}
+{% load crispy_forms_tags %}
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{% block content %}
+<h3 style="text-align:center;color:grey">ADD Student FORM</h3>
+  <form method="post" class="jumbotron" enctype="multipart/form-data" style="margin:auto">
+      {% csrf_token %}
+      {{form|crispy}}
+      <input type="submit" value="ADD Student">
+
+  </form>
+{% endblock %}
+
+
+</body>
+</html>

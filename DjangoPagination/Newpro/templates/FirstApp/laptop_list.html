@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+{% extends 'layout.html' %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title style="text-align:center">Students List</title>
+</head>
+<body>
+{% block content %}
+<h1 style="text-align:center;color:YELLOW">STUDENTS-LIST</h1>
+
+<table border="1px" class="center" style="background-color:silver;text-align:center">
+    <tr style="background-color:black;color:white">
+        <th>ROLL NO</th>
+        <th>NAME</th>
+        <th>COURSE</th>
+        <th>MARKS</th>
+        <th>RESULT</th>
+        <th>FEES</th>
+        <th>DEL</th>
+        <th>UPD</th>
+
+
+    </tr>
+    {% for stu in page_obj %}
+    <tr>
+        <td>{{stu.rollno}}</td>
+        <td>{{stu.name}}</td>
+        <td>{{stu.course}}</td>
+        <td>{{stu.marks}}</td>
+           {% if stu.marks > 50 %}
+            <td style="color:green"> PASS </td>
+            {% else %}
+            <td style="color:red"> FAIL </td>
+            {% endif %}
+
+            {% if stu.fees == True %}
+                <td style="color:green">PAID</td>
+            {% else %}
+                <td style="color:red">NOT PAID</td>
+            {% endif %}
+        <td><a href="{% url 'del' stu.id %}">
+                    <button class="btn btn-danger">DELETE</button>
+                </a></td>
+        <td><a href="{% url 'upd' stu.id %}">
+                    <button class="btn btn-success">UPDATE</button>
+                </a></td>
+    </tr>
+
+    {% endfor %}
+</table><br><br>
+
+
+
+<div style="text-align:center">
+    <span>
+        {% if page_obj.has_previous %}
+        <button style="background-color:yellow"><a href="?page={{page_obj.previous_page_number}}">Previous</a></button><br>
+        {% endif %}
+        <span>{{page_obj.number}}</span><br>
+        {% if page_obj.has_next %}
+        <button style="background-color:aquamarine"><a href="?page={{page_obj.next_page_number}}">Next</a></button>
+        {% endif %}
+    </span>
+</div>
+{% endblock %}
+</body>
+</html>
